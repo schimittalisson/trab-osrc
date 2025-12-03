@@ -97,6 +97,69 @@ This project demonstrates how to implement secure user authentication for a web 
 3. **Firebase Auth** - Authentication service middleware
 4. **Google IdP** - Identity Provider (Google's OAuth server)
 
+
+### Understanding the Roles
+
+#### 🔥 Firebase Authentication: The Middleware
+
+Firebase acts as an **authentication middleware** that simplifies OAuth 2.0 implementation. It does NOT store passwords or authenticate users directly.
+
+**What Firebase Does:**
+
+1. **Simplifies OAuth Flow**
+   - Abstracts complex OAuth 2.0 implementation
+   - Manages redirects and callbacks automatically
+   - Handles CSRF protection with state parameter
+
+2. **Token Management**
+   - Validates ID tokens (JWT) from Google
+   - Stores tokens securely in browser
+   - Automatically renews expired tokens
+   - Manages refresh token flow
+
+3. **Session Management**
+   - Maintains user session across page reloads
+   - Provides `onAuthStateChanged` listener
+   - Synchronizes auth state across browser tabs
+   - Persists authentication state
+
+4. **Unified API**
+   - Single interface for multiple providers (Google, Facebook, GitHub, etc.)
+   - Consistent API for client and server (Firebase Admin SDK)
+   - Simplified error handling
+
+5. **Security Features**
+   - Automatic JWT signature verification
+   - Claims validation (issuer, audience, expiration)
+   - Secure token storage
+   - Built-in security best practices
+
+**Code Example:**
+```typescript
+// Without Firebase: ~200 lines of complex OAuth implementation
+// With Firebase: 3 simple lines
+const provider = new GoogleAuthProvider();
+const result = await signInWithPopup(auth, provider);
+console.log(result.user); // Ready to use!
+
+┌─────────────────────────────────────────────────────────────┐
+│                    Authentication Flow                       │
+└─────────────────────────────────────────────────────────────┘
+
+1. Your App calls Firebase
+   ↓
+2. Firebase redirects to Google IdP
+   ↓
+3. Google authenticates user (checks password)
+   ↓
+4. Google issues tokens (ID Token, Access Token)
+   ↓
+5. Firebase receives and validates tokens
+   ↓
+6. Firebase creates local session
+   ↓
+7. Your App receives authenticated user
+
 ---
 
 ## ✨ Features
