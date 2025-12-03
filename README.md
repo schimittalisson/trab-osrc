@@ -141,9 +141,11 @@ Firebase acts as an **authentication middleware** that simplifies OAuth 2.0 impl
 const provider = new GoogleAuthProvider();
 const result = await signInWithPopup(auth, provider);
 console.log(result.user); // Ready to use!
+```
 
+```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Authentication Flow                       │
+│                    Authentication Flow                      │
 └─────────────────────────────────────────────────────────────┘
 
 1. Your App calls Firebase
@@ -159,6 +161,7 @@ console.log(result.user); // Ready to use!
 6. Firebase creates local session
    ↓
 7. Your App receives authenticated user
+```
 
 ---
 
